@@ -23,10 +23,32 @@ class LibraryApp:
         self.create_widgets()
         
         self.show_page(self.all_frames[0])  # Show the main frame
+        self.clear_entry_widgets()
 
+    def clear_entry_widgets(self):                                #To remove the data from the text boxes
+        # Clear entry widgets in the add book frame
+        self.entry_title.delete(0, tk.END)
+        self.entry_author.delete(0, tk.END)
+        self.entry_year.delete(0, tk.END)
+        self.entry_genre.delete(0, tk.END)
+        self.entry_copies.delete(0, tk.END)
 
+        # Clear entry widgets in the add member frame
+        self.entry_member_first_name.delete(0, tk.END)
+        self.entry_member_last_name.delete(0, tk.END)
+        self.entry_member_email.delete(0, tk.END)
+
+        # Clear entry widgets in the add loan frame
+        self.entry_loan_book_id.delete(0, tk.END)
+        self.entry_loan_member_id.delete(0, tk.END)
+        self.entry_loan_date.delete(0, tk.END)
+        self.entry_due_date.delete(0, tk.END)
+
+        # Clear entry widgets in the returned book frame
+        self.entry_returned_loan_id.delete(0, tk.END)
+        self.entry_returned_date.delete(0, tk.END)
     
-    def create_frames(self):
+    def create_frames(self):             # To create the frames used
         main_frame = tk.Frame(self.root)
         add_book_frame = tk.Frame(self.root)
         add_member_frame = tk.Frame(self.root)
@@ -40,7 +62,7 @@ class LibraryApp:
         return [main_frame, add_book_frame, add_member_frame, add_loan_frame,returned_book_frame ,show_pending_loans_frame, show_returned_books_frame, show_all_books_frame,show_all_members_frame]
 
 
-    def create_widgets(self):
+    def create_widgets(self):                     # To create the widgets used
         # Main frame:
         # Create widgets for main frame
         self.button_add_book = tk.Button(self.all_frames[0], text="Add Book", command=lambda: self.show_page(self.all_frames[1]))
@@ -50,7 +72,7 @@ class LibraryApp:
         self.button_show_returned_books = tk.Button(self.all_frames[0], text="Show Returned Books", command=lambda: (self.show_page(self.all_frames[6]), self.show_returned_books()))
         self.button_show_all_books = tk.Button(self.all_frames[0], text="Show All Books (And delete)", command=lambda: self.show_page(self.all_frames[7]))
         self.button_show_all_members = tk.Button(self.all_frames[0], text="Show All Members (And delete)", command=lambda: self.show_page(self.all_frames[8]))
-        self.button_enter_returned_book = tk.Button(self.all_frames[0], text="Enter Returned Book", command=lambda: self.show_page(self.all_frames[4]))  # New button
+        self.button_enter_returned_book = tk.Button(self.all_frames[0], text="Enter Returned Book", command=lambda: self.show_page(self.all_frames[4])) 
         # Pack the buttons on the main frame
         self.button_add_book.pack()
         self.button_add_member.pack()
@@ -59,33 +81,26 @@ class LibraryApp:
         self.button_show_returned_books.pack()
         self.button_show_all_books.pack()
         self.button_show_all_members.pack()
-        self.button_enter_returned_book.pack()  # Pack the new button
-
+        self.button_enter_returned_book.pack() 
 
         # Create widgets for adding a book
         tk.Label(self.all_frames[1], text="Title").pack()
         self.entry_title = tk.Entry(self.all_frames[1])
         self.entry_title.pack()
-
         tk.Label(self.all_frames[1], text="Author").pack()
         self.entry_author = tk.Entry(self.all_frames[1])
         self.entry_author.pack()
-
         tk.Label(self.all_frames[1], text="Year").pack()
         self.entry_year = tk.Entry(self.all_frames[1])
         self.entry_year.pack()
-
         tk.Label(self.all_frames[1], text="Genre").pack()
         self.entry_genre = tk.Entry(self.all_frames[1])
         self.entry_genre.pack()
-
         tk.Label(self.all_frames[1], text="Copies").pack()
         self.entry_copies = tk.Entry(self.all_frames[1])
         self.entry_copies.pack()
-
         self.button_add_book_confirm = tk.Button(self.all_frames[1], text="Confirm", command=self.add_book)
         self.button_back_add_book = tk.Button(self.all_frames[1], text="Back", command=lambda: self.show_page(self.all_frames[0]))
-
         self.button_add_book_confirm.pack()
         self.button_back_add_book.pack()
         
@@ -93,18 +108,14 @@ class LibraryApp:
         tk.Label(self.all_frames[2], text="First Name").pack()
         self.entry_member_first_name = tk.Entry(self.all_frames[2])
         self.entry_member_first_name.pack()
-
         tk.Label(self.all_frames[2], text="Last Name").pack()
         self.entry_member_last_name = tk.Entry(self.all_frames[2])
         self.entry_member_last_name.pack()
-
         tk.Label(self.all_frames[2], text="Email").pack()
         self.entry_member_email = tk.Entry(self.all_frames[2])
         self.entry_member_email.pack()
-
         self.button_add_member_confirm = tk.Button(self.all_frames[2], text="Confirm", command=self.add_member)
         self.button_back_add_member = tk.Button(self.all_frames[2], text="Back", command=lambda: self.show_page(self.all_frames[0]))
-
         self.button_add_member_confirm.pack()
         self.button_back_add_member.pack()
         
@@ -112,23 +123,17 @@ class LibraryApp:
         tk.Label(self.all_frames[3], text="Book ID").pack()
         self.entry_loan_book_id = tk.Entry(self.all_frames[3])
         self.entry_loan_book_id.pack()
-
         tk.Label(self.all_frames[3], text="Member ID").pack()
         self.entry_loan_member_id = tk.Entry(self.all_frames[3])
         self.entry_loan_member_id.pack()
-
         tk.Label(self.all_frames[3], text="Loan Date").pack()
         self.entry_loan_date = DateEntry(self.all_frames[3], date_pattern="yyyy-mm-dd")  # Specify date format
         self.entry_loan_date.pack()
-
         tk.Label(self.all_frames[3], text="Due Date").pack()
         self.entry_due_date = DateEntry(self.all_frames[3], date_pattern="yyyy-mm-dd")  # Specify date format
         self.entry_due_date.pack()
-
-
         self.button_add_loan_confirm = tk.Button(self.all_frames[3], text="Confirm", command=self.add_loan)
         self.button_back_add_loan = tk.Button(self.all_frames[3], text="Back", command=lambda: self.show_page(self.all_frames[0]))
-
         self.button_add_loan_confirm.pack()
         self.button_back_add_loan.pack()
 
@@ -136,25 +141,21 @@ class LibraryApp:
         tk.Label(self.all_frames[4], text="Loan ID").pack()
         self.entry_returned_loan_id = tk.Entry(self.all_frames[4])
         self.entry_returned_loan_id.pack()
-
         tk.Label(self.all_frames[4], text="Returned Date").pack()
         self.entry_returned_date = DateEntry(self.all_frames[4], date_pattern="yyyy-mm-dd")  # Specify date format
         self.entry_returned_date.pack()
-
         self.button_confirm_returned = tk.Button(self.all_frames[4], text="Confirm", command=self.enter_returned_book)
         self.button_confirm_returned.pack()
         self.button_back_returned = tk.Button(self.all_frames[4], text="Back", command=lambda: self.show_page(self.all_frames[0]))
         self.button_back_returned.pack()
-        
-        # ... Create other widgets for other frames ...
 
         # Listbox for showing pending loans
+
         # Create a new frame for showing loans
         loans_frame = tk.Frame(self.root)
         self.all_frames.append(loans_frame)
 
-        # Create a Treeview widget for showing loans
-        # Create Treeview widget for pending loans
+        # Create a Treeview widget for showing loans and pending loans
         self.loans_tree = ttk.Treeview(self.all_frames[5], columns=("LoanID", "BookID", "MemberID", "LoanDate", "DueDate"), show="headings")
         self.loans_tree.heading("LoanID", text="Loan ID")
         self.loans_tree.heading("BookID", text="Book ID")
@@ -188,8 +189,9 @@ class LibraryApp:
         self.all_books_tree.heading("Copies", text="Copies")
         self.all_books_tree.pack()
 
-        self.update_all_books_list()
-        self.populate_authors_table()
+        self.update_all_books_list()    # Update the list ofbooks in the UI
+        self.update_all_members_list()  # Update the list of members in the UI
+        self.populate_authors_table()   # Update the list of authors in the db
 
         # displaying table is taken care of in show_all_books
 
@@ -270,6 +272,9 @@ class LibraryApp:
         values = (first_name, last_name, email)
         self.cursor.execute(query, values)
         self.db_connection.commit()
+
+        self.update_all_members_list()
+
         messagebox.showinfo("Success", "Member added successfully!")
     
     def add_loan(self):
@@ -331,7 +336,7 @@ class LibraryApp:
    
     def show_all_books(self):
         try:
-            sql = "SELECT * FROM books"  # Use "books" table directly, without specifying the schema
+            sql = "SELECT * FROM books"  
             self.cursor.execute(sql)
             all_books = self.cursor.fetchall()
 
@@ -340,7 +345,7 @@ class LibraryApp:
             print(len(all_books))
 
             for book in all_books:
-                book_data = book + ("",)  # Add an empty value for the delete button column
+                book_data = book + ("",)                                           # Add an empty value for the delete button column
                 self.all_books_tree.insert("", "end", values=book_data)
         except Exception as e:
             print("An error occurred:", e)
@@ -354,10 +359,11 @@ class LibraryApp:
             sql = "DELETE FROM Books WHERE BookID = %s"
             self.cursor.execute(sql, (book_id,))
             self.db_connection.commit()
-            self.update_all_books_list()  # Update the list of books in the UI
+            self.update_all_books_list()                                            # Update the list of books in the UI
             messagebox.showinfo("Success", "Book deleted successfully!")
         except Exception as e:
             print("An error occurred while deleting book:", e)
+
     def delete_selected_book(self):
         selected_item = self.all_books_tree.focus()
         if selected_item:
@@ -366,22 +372,39 @@ class LibraryApp:
         else:
             messagebox.showwarning("Warning", "Please select a book to delete.")
 
+    def show_all_members(self):
+        try:
+            sql = "SELECT * FROM Members"
+            self.cursor.execute(sql)
+            all_members = self.cursor.fetchall()
+
+            # Clear the existing items in the Treeview
+            self.all_members_tree.delete(*self.all_members_tree.get_children())
+
+            # Insert the updated list of members into the Treeview
+            for member in all_members:
+                self.all_members_tree.insert("", "end", values=member)
+        except Exception as e:
+            print("An error occurred while retrieving members:", e)
 
     def delete_member(self, member_id):
         try:
             sql = "DELETE FROM Members WHERE MemberID = %s"
             self.cursor.execute(sql, (member_id,))
             self.db_connection.commit()
+
+            # Fetch the updated list of members
+            self.update_all_members_list()
+
             messagebox.showinfo("Success", "Member deleted successfully!")
         except Exception as e:
             print("An error occurred while deleting member:", e)
+
     def delete_selected_member(self):
         try:
             selected_item = self.all_members_tree.focus()
-            print(selected_item)  # Add this line to see the selected item
             if selected_item:
                 member_id = self.all_members_tree.item(selected_item)['values'][0]
-                print(member_id)  # Add this line to see the retrieved member_id
                 self.delete_member(member_id)
             else:
                 messagebox.showwarning("Warning", "Please select a member to delete.")
@@ -458,8 +481,13 @@ class LibraryApp:
         # Show the selected frame
         page.pack()
 
+        if page == self.all_frames[0]:
+            self.clear_entry_widgets()
+
     def go_back(self):
         self.show_page(self.all_frames[0])
+        self.update_all_members_list()
+
 
 
 
