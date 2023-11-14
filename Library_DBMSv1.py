@@ -14,7 +14,7 @@ class LibraryApp:
         self.db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="#@,pq;y8jzV_4!;09hqd00j0Q@$r",
+            password="yourpass",
             database="library_db"
         )
         self.cursor = self.db_connection.cursor()
